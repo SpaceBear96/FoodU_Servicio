@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey:true
     },
     or_cant: DataTypes.INTEGER,
+    or_pin: DataTypes.STRING,
     or_total: DataTypes.DECIMAL,
     or_state: DataTypes.BOOLEAN,    
     pst_code:{
@@ -34,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
 
   order.associate = function(models) {
     order.belongsTo(models.post,{
-        foreignKey:'pstd_code'
+        foreignKey:'pst_code'
     }),
     order.belongsTo(models.place,{
       foreignKey:'pl_code'

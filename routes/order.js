@@ -23,8 +23,9 @@ router.get('/', function(req, res) {
 });
 
 router.post('/create',function(req,res){  
-  const { title, descr, fd } = req.body
-  const vCode="";
+  const { cant , pst , stu , pl } = req.body
+  
+
   enigma.genHash(index.enigma.vEncrip,index.enigma.key,index.enigma.plate,function(err,hash){
     if(err) return console.log(err);
     console.log(hash)
@@ -64,8 +65,10 @@ router.get('/view/:id',function(req,res){
 
 router.post('/edit',function(req,res){
 
-    const { code, title, descr, fd } = req.body    
+  const { code, title, descr, fd } = req.body    
   
+  var pin = GenCodigo();
+  console.log(pin);
   models.post.update({
       pst_title: title,
       pst_descr: descr,
@@ -95,4 +98,11 @@ router.get('/view/:id',function(req,res){
         res.json(posts);
       });
 });
+
+function GenCodigo(){
+    num = Math.random();
+    lu = num * (Math.pow(10,6));
+    fin = Math.trunc(lu);
+  return fin;
+}
 module.exports = router;
