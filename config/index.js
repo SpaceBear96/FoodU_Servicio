@@ -18,7 +18,6 @@ module.exports = {
         }
     },
     enigma: {
-        plate: 'contraseña123',
         key: 'foodu321',
         vEncrip: '10'
     }
