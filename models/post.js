@@ -1,27 +1,25 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const post = sequelize.define('post', {
-    pst_code:{
+    PostID:{
       type:DataTypes.INTEGER,
       autoIncrement:true,
       primaryKey:true
     },
-    pst_title: DataTypes.STRING,
-    pst_descr: DataTypes.STRING,
-    fd_code:{
+    PostTitle: DataTypes.STRING,
+    PostDescr: DataTypes.STRING,
+    FoodID:{
         type: DataTypes.INTEGER,
         references: {
           model: 'food',
-          key: 'fd_code'
+          key: 'FoodID'
         }
     }
-  }, {});
- 
- 
+  }, {}); 
 
   post.associate = function(models) {
     post.belongsTo(models.food,{
-        foreignKey:'fd_code'
+        foreignKey:'FoodID'
     })
   };
 

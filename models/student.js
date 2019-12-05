@@ -1,14 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const student = sequelize.define('student', {
-    stu_code:{
+    StudentID:{
       type:DataTypes.INTEGER,
       autoIncrement:true,
       primaryKey:true
     },
-    stu_name: DataTypes.STRING,
-    stu_lsname: DataTypes.STRING,
-    stu_type: DataTypes.INTEGER
+    StudentName: DataTypes.STRING,
+    StudentLsname: DataTypes.STRING,
+    StudentType: DataTypes.INTEGER
   }, {});
   student.associate = function(models) {
     // associations can be defined here

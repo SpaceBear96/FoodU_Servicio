@@ -23,19 +23,19 @@ router.post('/create', function (req, res) {
     console.log("Posiblenombre : "+nm);
     
     models.food.create({
-        fd_name: name,
-        fd_descr: descr,
-        fd_precio: precio,
-        fd_stock: stock,
-        stu_code: stu,
-        fd_img: nm,
+        FoodName: name,
+        FoodDescr: descr,
+        FoodPrecio: precio,
+        FoodStock: stock,
+        StudentID: stu,
+        FoodImg: nm,
         createdAt: Date.now(),
         updatedAt: Date.now()
     }).then( fd => {
       res.json({
           status: "ok",
           operation: "create",
-          id: fd.fd_code,
+          id: fd.FoodID,
       });
     });
 

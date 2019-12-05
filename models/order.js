@@ -1,47 +1,47 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const order = sequelize.define('order', {
-    or_code:{
+    OrderID:{
       type:DataTypes.INTEGER,
       autoIncrement:true,
       primaryKey:true
     },
-    or_cant: DataTypes.INTEGER,
-    or_pin: DataTypes.STRING,
-    or_total: DataTypes.DECIMAL,
-    or_state: DataTypes.BOOLEAN,    
-    pst_code:{
+    OrderCant: DataTypes.INTEGER,
+    OrderPin: DataTypes.STRING,
+    OrderTotal: DataTypes.DECIMAL,
+    OrderState: DataTypes.BOOLEAN,    
+    PostID:{
         type: DataTypes.INTEGER,
         references: {
           model: 'post',
-          key: 'pst_code'
+          key: 'PostID'
         }
     },
-    stu_code:{
+    StudentID:{
         type: DataTypes.INTEGER,
         references: {
           model: 'student',
-          key: 'stu_code'
+          key: 'StudentID'
         }
     },
-    pl_code:{
+    PlaceID:{
         type: DataTypes.INTEGER,
         references: {
           model: 'place',
-          key: 'pl_code'
+          key: 'PlaceID'
         }
     }
   }, {});
 
   order.associate = function(models) {
     order.belongsTo(models.post,{
-        foreignKey:'pst_code'
+        foreignKey:'PostID'
     }),
     order.belongsTo(models.place,{
-      foreignKey:'pl_code'
+      foreignKey:'PlaceID'
     }),
     order.belongsTo(models.student,{
-      foreignKey:'stu_code'
+      foreignKey:'StudentID'
     })
   };
 

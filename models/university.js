@@ -1,13 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const university = sequelize.define('university', {
-    uni_code:{
+    UniversityID:{
       type:DataTypes.INTEGER,
       autoIncrement:true,
       primaryKey:true
     },
-    uni_name: DataTypes.STRING,
-    uni_abrev: DataTypes.STRING
+    UniversityName: DataTypes.STRING,
+    UniversityAbrev: DataTypes.STRING
   }, {
     freezeTableName: true,
     timestamp: false,

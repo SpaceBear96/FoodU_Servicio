@@ -15,16 +15,16 @@ router.get('/', function(req, res) {
 router.post('/create',function(req,res){
   const { title, descr, fd } = req.body
   models.post.create({
-      pst_title: title,
-      pst_descr: descr,
-      fd_code: fd,
+      PostTitle: title,
+      PostDescr: descr,
+      FoodID: fd,
       createdAt: Date.now(),
       updatedAt: Date.now()
     }).then(pst=> {
     res.json({
         status: "ok",
         operation: "create",
-        id: pst.pst_code,
+        id: pst.PostID,
     });
   });
 });
@@ -37,7 +37,7 @@ router.get('/view/:id',function(req,res){
         }]
         ,
         where: {
-            pst_code:id
+            PostID:id
           }
     }
       ).then(posts => {
@@ -50,12 +50,12 @@ router.post('/edit',function(req,res){
     const { code, title, descr, fd } = req.body    
   
   models.post.update({
-      pst_title: title,
-      pst_descr: descr,
-      fd_code: fd,
+      PostTitle: title,
+      PostDescr: descr,
+      FoodID: fd,
       updatedAt: Date.now()
   }, {  where: {
-        pst_code: code
+        PostID: code
     }}).then(() => {
     console.log("Done");
   }).catch(err => {

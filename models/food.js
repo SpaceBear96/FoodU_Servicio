@@ -3,21 +3,21 @@ module.exports = (sequelize, DataTypes) => {
   const food = sequelize.define(
     "food",
     {
-      fd_code: {
+      FoodID: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
       },
-      fd_name: DataTypes.STRING,
-      fd_descr: DataTypes.STRING,
-      fd_precio: DataTypes.DECIMAL,
-      fd_stock: DataTypes.INTEGER,
-      fd_img: DataTypes.STRING,
-      stu_code: {
+      FoodName: DataTypes.STRING,
+      FoodDescr: DataTypes.STRING,
+      FoodPrecio: DataTypes.DECIMAL,
+      FoodStock: DataTypes.INTEGER,
+      FoodImg: DataTypes.STRING,
+      StudentID: {
         type: DataTypes.INTEGER,
         references: {
           model: "student",
-          key: "stu_code"
+          key: "StudentID"
         }
       }
     },
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 
   food.associate = function(models) {
     food.belongsTo(models.student, {
-      foreignKey: "stu_code"
+      foreignKey: "StudentID"
     });
   };
 

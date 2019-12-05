@@ -12,9 +12,9 @@ router.post("/create", function(req, res) {
   const { name, lsname, type } = req.body;
   models.student
     .create({
-      stu_name: name,
-      stu_lsname: lsname,
-      stu_type: type,
+      StudentName: name,
+      StudentLsname: lsname,
+      StudentType: type,
       createdAt: Date.now(),
       updatedAt: Date.now()
     })
@@ -22,7 +22,7 @@ router.post("/create", function(req, res) {
       res.json({
         status: "ok",
         operation: "create",
-        id: stu.stu_code
+        id: stu.StudentID
       });
     });
 });
@@ -32,7 +32,7 @@ router.get("/view/:id", function(req, res) {
   models.student
     .findAll({
       where: {
-        stu_code: id
+        StudentID: id
       }
     })
     .then(users => {
@@ -45,14 +45,14 @@ router.post("/edit", function(req, res) {
   models.student
     .update(
       {
-        stu_name: name,
-        stu_lsname: lsname,
-        stu_type: type,
+        StudentName: name,
+        StudentLsname: lsname,
+        StudentType: type,
         updatedAt: Date.now()
       },
       {
         where: {
-          stu_code: code
+          StudentID: code
         }
       }
     )
