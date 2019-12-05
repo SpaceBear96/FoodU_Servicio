@@ -9,6 +9,7 @@ var logger = require('morgan');
   var foodRouter = require('./routes/food');
   var postRouter = require('./routes/post');
   var orderRouter = require('./routes/order');
+  var pruebaRouter = require('./routes/prueba');
 var fileUpload = require('express-fileupload');
 
 var app = express();
@@ -31,6 +32,7 @@ app.use('/student', studentRouter);
 app.use('/food', foodRouter);
 app.use('/post', postRouter);
 app.use('/order', orderRouter);
+app.use('/prueba', pruebaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
