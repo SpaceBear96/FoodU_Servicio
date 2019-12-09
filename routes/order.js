@@ -5,47 +5,39 @@ const index = require('../config/index');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  models.order.findAll({
+  models.sale.findAll({
     include:[
         {
-            model:models.post,
-            include: [{
-              model: models.food
-            }]
+            model:models.food,
         },
         {
             model:models.place, 
         },
         {
-            model:models.student, 
+            model:models.user, 
         }
     ]
   }).then(orders => {
     res.json(orders);
   });
+  
 });
 
 router.post('/create',function(req,res){  
-  const { cant , pst , stu , pl } = req.body
-
+  const { pre, cant , fd,pl,user } = req.body
   //Generación del codigo de 6 dígitos
     var pin = GenCodigo();
     console.log(pin);
   
   //encriptación
-  enigma.genHash(index.enigma.vEncrip,index.enigma.key,pin,function(err,hash){
-    if(err) return console.log(err);
-    console.log(pin);
-    console.log(hash)
-    vCode = hash;
-    });
-    
-  models.post.create({
-      PostTitle: title,
-      PostDescr: descr,
-      FoodID: fd,
-      createdAt: Date.now(),
-      updatedAt: Date.now()
+  models.sale.create({
+      Price: parseFloat(pre),
+      Code: pin,  
+      State: true,
+      Quantity: parseInt(cant),
+      Food_ID: parseInt(fd),
+      Places_ID: parseInt(pl),
+      Users_ID:parseInt(user)
     }).then(pst=> {
     res.json({
         status: "ok",
@@ -80,7 +72,8 @@ router.post('/edit',function(req,res){
       PostDescr: descr,
       FoodID: fd,
       updatedAt: Date.now()
-  }, {  where: {
+  }, {  
+    where: {
         PostID: code
     }}).then(() => {
     console.log("Done");

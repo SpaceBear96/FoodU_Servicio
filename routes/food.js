@@ -3,12 +3,12 @@ var models = require('../models');
 var aws = require('../libs/aws-s3');
 var router = express.Router();
 const index = require('../config/index');
-const NEW_BUCKET_NAME = index.aws.s3.BUCKET_NAME + '/Comida';
+const NEW_BUCKET_NAME = index.aws.s3.BUCKET_NAME + '/Comida'; 
 
 router.get('/', function (req, res) {
   models.food.findAll({
     include:[{
-      model:models.student
+      model:models.user
     }]
   }).then(comida => {
     res.json(comida);
@@ -23,19 +23,19 @@ router.post('/create', function (req, res) {
     console.log("Posiblenombre : "+nm);
     
     models.food.create({
-        FoodName: name,
-        FoodDescr: descr,
-        FoodPrecio: precio,
-        FoodStock: stock,
-        StudentID: stu,
-        FoodImg: nm,
+        Name: name,
+        Description: descr,
+        Price: precio,
+        Stock: stock,
+        Users_ID: stu,
+        Image: nm,
         createdAt: Date.now(),
         updatedAt: Date.now()
     }).then( fd => {
       res.json({
           status: "ok",
           operation: "create",
-          id: fd.FoodID,
+          id: fd.ID,
       });
     });
 
@@ -45,4 +45,4 @@ router.post('/create', function (req, res) {
   }
 });
 
-module.exports = router;
+module.exports = router;  

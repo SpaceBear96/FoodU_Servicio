@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const university = sequelize.define('university', {
+  const rol = sequelize.define('rol', {
     ID:{
       type:DataTypes.INTEGER,
       autoIncrement:true,
@@ -12,8 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     timestamp: false,
     omitNull:true,
   });
-  university.associate = function(models) {
-    // associations can be defined here
-  };
-  return university;
+
+  return rol;
 };

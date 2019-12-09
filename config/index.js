@@ -18,7 +18,7 @@ module.exports = {
         }
     },
     enigma: {
-        key: 'foodu321',
-        vEncrip: '10'
+        key: '14225542',
+        vEncrip: 10
     }
 }

@@ -1,5 +1,7 @@
 var express = require("express");
 var models = require("../models");
+const index = require('../config/index');
+var enigma = require('enigma-code');
 var router = express.Router();
 
 router.get("/", function(req, res) {
@@ -9,22 +11,7 @@ router.get("/", function(req, res) {
 });
 
 router.post("/create", function(req, res) {
-  const { name, lsname, type } = req.body;
-  models.student
-    .create({
-      StudentName: name,
-      StudentLsname: lsname,
-      StudentType: type,
-      createdAt: Date.now(),
-      updatedAt: Date.now()
-    })
-    .then(stu => {
-      res.json({
-        status: "ok",
-        operation: "create",
-        id: stu.StudentID
-      });
-    });
+  
 });
 
 router.get("/view/:id", function(req, res) {

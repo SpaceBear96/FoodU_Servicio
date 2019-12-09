@@ -1,15 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const place = sequelize.define('place', {
-    PlaceID:{
+    ID:{
       type:DataTypes.INTEGER,
       autoIncrement:true,
       primaryKey:true
     },
-    PlaceName: DataTypes.STRING,
-    PlaceDescr: DataTypes.STRING,
-    PlaceLat: DataTypes.DECIMAL,
-    PlaceLon: DataTypes.DECIMAL
+    Name: DataTypes.STRING,
+    Description: DataTypes.STRING
  }, {});
 
   return place;

@@ -8,6 +8,7 @@ router.get('/', function(req, res) {
       model:models.food
     }]
   }).then(posts => {
+    console.log(posts.PostID);
     res.json(posts);
   });
 });
