@@ -47,55 +47,16 @@ router.post('/create',function(req,res){
   });
 });
 
-router.get('/view/:id',function(req,res){
-    var id = req.param('id');
-    models.post.findAll({
-        include:[{
-          model:models.food
-        }]
-        ,
-        where: {
-            PostID:id
-          }
-    }
-      ).then(posts => {
-        res.json(posts);
-      });
-});
-
-router.post('/edit',function(req,res){
-
-  const { code, title, descr, fd } = req.body    
-  
-  models.post.update({
-      PostTitle: title,
-      PostDescr: descr,
-      FoodID: fd,
-      updatedAt: Date.now()
-  }, {  
-    where: {
-        PostID: code
-    }}).then(() => {
-    console.log("Done");
-  }).catch(err => {
-      console.log(err)
+router.post('/verificar',function(req,res){  
+  let code = req.body.Code
+  models.sale.findOne({where:{Code:code},include:[{model:models.food,},{model:models.place, },{model:models.user, }
+  ]})
+  .then(sale => {
+    sale.State = true;
+    models.sale.update(sale,{where :{ID : sale.ID}}).then(x => {
+      res.json(sale);
+    })
   });
-});
-
-router.get('/view/:id',function(req,res){
-    var id = req.param('id');   
-    models.post.findAll({
-        include:[{
-          model:models.food
-        }]
-        ,
-        where: {
-            PostID:id
-          }
-    }
-      ).then(posts => {
-        res.json(posts);
-      });
 });
 
 function GenCodigo(){
