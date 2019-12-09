@@ -52,6 +52,15 @@ router.post('/verificar',function(req,res){
   models.sale.findOne({where:{Code:code},include:[{model:models.food,},{model:models.place, },{model:models.user, }
   ]})
   .then(sale => {
+    res.json(sale);
+  });
+});
+
+router.post('/confirmar',function(req,res){  
+  let code = req.body.Code
+  models.sale.findOne({where:{Code:code},include:[{model:models.food,},{model:models.place, },{model:models.user, }
+  ]})
+  .then(sale => {
     sale.State = true;
     models.sale.update(sale,{where :{ID : sale.ID}}).then(x => {
       res.json(sale);
