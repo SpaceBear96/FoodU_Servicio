@@ -81,7 +81,7 @@ router.post('/confirmar',function(req,res){
   .then(sale => {
     sale.State = true;
     models.sale.update(sale,{where :{ID : sale.ID}}).then(x => {
-      res.json(sale);
+      res.json(x);
     })
   });
 });
