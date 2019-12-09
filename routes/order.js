@@ -4,8 +4,26 @@ var crypto = require('crypto');
 const index = require('../config/index');
 var router = express.Router();
 
-router.get('/', function(req, res) {
-  models.sale.findAll({
+router.get('/completas', function(req, res) {
+  models.sale.findAll({where:{State:true},
+    include:[
+        {
+            model:models.food,
+        },
+        {
+            model:models.place, 
+        },
+        {
+            model:models.user, 
+        }
+    ]
+  }).then(orders => {
+    res.json(orders);
+  });
+  
+});
+router.get('/pendientes', function(req, res) {
+  models.sale.findAll({where:{State:false},
     include:[
         {
             model:models.food,
