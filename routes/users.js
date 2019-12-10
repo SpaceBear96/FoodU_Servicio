@@ -41,6 +41,7 @@ router.post("/login", function(req, res) {
 
 router.post("/create", (req, res) => {
   const { Name, LastName, Role, Email, Password, University } = req.body;
+  
   bcrypt.genSalt(10).then(salts => {
     bcrypt.hash(Password,salts).then(hash => {
         try {
@@ -64,4 +65,59 @@ router.post("/create", (req, res) => {
     });
 });
 });
+
+router.post("/list",(req,res)=>{
+  const id = req.body.id;
+  models.user
+    .findAll({
+      where: {
+        Roles_ID: id
+      }
+    })
+    .then(user => {
+      res.json(user);
+    });
+})
+
+function verificar(email, role) {
+  models.user
+    .findAll({
+      where: {
+        Email: email
+      }
+    })
+    .then(user => {
+      if (user!="") {
+        console.log("Tiene datos");
+        console.log("ID registrado " + user[0].Roles_ID);
+        console.log("ID por registrar " + role);
+        return verificar_rol(user[0].ID, user[0].Roles_ID, role) ? false : true;
+      } else {
+        console.log("No tiene datos");
+        return true;
+      }
+    });
+}
+
+function verificar_rol(id, rol1, rol2) {
+  //1:Vendedor,2:Cliente,3:Ambos
+  if (rol1 != 3 && rol2 != 3) {
+    if (rol1 == rol2) {
+      console.log("Los roles se repiten");
+      return false;
+    } else {
+      update(id, 3)
+        ? console.log("Rol actualizado correctamente")
+        : console.log("Fallo en la actualización");
+      return true;
+    }
+  }
+}
+
+function update(id_, rol) {
+  models.user.update({ Roles_ID: rol,updateAt: Date.now() }, { where: { ID: id_ } }).then(x => {
+    return true;
+  });
+}
+
 module.exports = router;
