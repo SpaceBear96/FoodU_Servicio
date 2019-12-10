@@ -8,7 +8,6 @@ var logger = require('morgan');
   var usersRouter = require('./routes/users');
   var studentRouter = require('./routes/student');
   var foodRouter = require('./routes/food');
-  var postRouter = require('./routes/post');
   var orderRouter = require('./routes/order');
   var pruebaRouter = require('./routes/prueba');
 var fileUpload = require('express-fileupload');
@@ -37,7 +36,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/student', studentRouter);
 app.use('/food', foodRouter);
-app.use('/post', postRouter);
 app.use('/order', orderRouter);
 app.use('/prueba', pruebaRouter);
 
