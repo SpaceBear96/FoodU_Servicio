@@ -6,73 +6,74 @@ var jwt = require('jsonwebtoken');
 
 var router = express.Router();
 
-router.post("/login", function(req, res) {
+router.post("/login", function (req, res) {
   const { Email, Password } = req.body;
 
   models.user.findOne(
-    {where:{Email:Email}})
+    { where: { Email: Email } })
     .then(usuario => {
-    if(!usuario) return res.status(404).json({message: 'EL USUARIO NO EXISTE'});
-    bcrypt.compare(Password,usuario.Password).then(match => {
-      if(match){
-        usuario.Password = null;
-        payload = {usuario}
-        jwt.sign(payload,index.bcrypt.key,function(error,token){
-            if(error){
-                res.status(500).json({error});
-            }else{
+      if (!usuario) return res.status(404).json({ message: 'EL USUARIO NO EXISTE' });
+      bcrypt.compare(Password, usuario.Password).then(match => {
+        if (match) {
+          usuario.Password = null;
+          payload = { usuario }
+          jwt.sign(payload, index.bcrypt.key, function (error, token) {
+            if (error) {
+              res.status(500).json({ error });
+            } else {
               usuario.token = token;
               res.status(200).json({
-                Name:usuario.Name,
-                LastName:usuario.LastName,
-                Email:usuario.Email,
-                Token : token,
-                Role : usuario.Roles_ID,
-                Universities_ID : usuario.Universities_ID
+                Name: usuario.Name,
+                LastName: usuario.LastName,
+                Email: usuario.Email,
+                Token: token,
+                Role: usuario.Roles_ID,
+                Universities_ID: usuario.Universities_ID
               });
             }
-        })
-    }else{
-        res.status(200).json({message: 'PASSWORD INCORRECTA'});
-    }
+          })
+        } else {
+          res.status(200).json({ message: 'PASSWORD INCORRECTA' });
+        }
+      });
     });
-  });
 });
 
 router.post("/create", (req, res) => {
   const { Name, LastName, Role, Email, Password, University } = req.body;
-  
+
   bcrypt.genSalt(10).then(salts => {
-    bcrypt.hash(Password,salts).then(hash => {
-        try {
-          models.user
-            .create({
-              Name: Name,
-              LastName: LastName,
-              Roles_ID: Role.ID, 
-              Email: Email,
-              Password: hash,
-              Universities_ID: University.ID
-            })
-            .then(usr => {
-              res.status(200).json(usr);
-            });
-        } catch (e) {
-          console.log(e)
-        }
+    bcrypt.hash(Password, salts).then(hash => {
+      try {
+        models.user
+          .create({
+            Name: Name,
+            LastName: LastName,
+            Roles_ID: Role.ID,
+            Email: Email,
+            Password: hash,
+            Universities_ID: University.ID
+          })
+          .then(usr => {
+            res.status(200).json(usr);
+          });
+      } catch (e) {
+        console.log(e)
+      }
     }).catch(error => {
       res.json(error)
     });
-});
+  });
 });
 
-router.post("/list",(req,res)=>{
+router.post("/list", (req, res) => {
   const Role = req.body.Role;
   models.user
     .findAll({
       where: {
         Roles_ID: Role.ID
-      }
+      },
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
     })
     .then(user => {
       res.json(user);
@@ -91,7 +92,7 @@ function verificar(email, role) {
       }
     })
     .then(user => {
-      if (user!="") {
+      if (user != "") {
         console.log("Tiene datos");
         console.log("ID registrado " + user[0].Roles_ID);
         console.log("ID por registrar " + role);
@@ -119,7 +120,7 @@ function verificar_rol(id, rol1, rol2) {
 }
 
 function update(id_, rol) {
-  models.user.update({ Roles_ID: rol,updateAt: Date.now() }, { where: { ID: id_ } }).then(x => {
+  models.user.update({ Roles_ID: rol, updateAt: Date.now() }, { where: { ID: id_ } }).then(x => {
     return true;
   });
 }
