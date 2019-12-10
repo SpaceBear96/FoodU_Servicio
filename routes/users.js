@@ -66,10 +66,14 @@ router.post("/create", (req, res) => {
   });
 });
 
-router.get("/list", (req, res) => {
-  const Role = req.body.Role;
+router.get("/listBuyers", (req, res) => {
   models.user
     .findAll({
+      where: {
+        Roles_ID: {
+          [models.Sequelize.Op.in]: ['1','3']
+        }
+      },
       attributes: { exclude: ['createdAt', 'updatedAt'] }
     })
     .then(user => {
