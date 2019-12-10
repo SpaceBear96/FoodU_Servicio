@@ -11,6 +11,8 @@ var logger = require('morgan');
   var orderRouter = require('./routes/order');
   var universitiesRouter = require('./routes/university');
   var pruebaRouter = require('./routes/prueba');
+  var universityRouter = require('./routes/university');
+
 var fileUpload = require('express-fileupload');
 var AuthToken = require('./middlewares/auth');
 var app = express();
