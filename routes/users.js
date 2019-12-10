@@ -67,11 +67,11 @@ router.post("/create", (req, res) => {
 });
 
 router.post("/list",(req,res)=>{
-  const id = req.body.ID;
+  const id = req.body.Role;
   models.user
     .findAll({
       where: {
-        Roles_ID: id
+        Roles_ID: Role.ID
       }
     })
     .then(user => {
