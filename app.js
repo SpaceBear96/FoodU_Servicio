@@ -12,7 +12,7 @@ var logger = require('morgan');
   var orderRouter = require('./routes/order');
   var pruebaRouter = require('./routes/prueba');
 var fileUpload = require('express-fileupload');
-
+var AuthToken = require('./middlewares/auth');
 var app = express();
 
 // view engine setup
@@ -31,6 +31,7 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.use(AuthToken)
 app.use(fileUpload());
 
 app.use('/', indexRouter);

@@ -1,83 +1,67 @@
 var express = require("express");
 var models = require("../models");
 const index = require("../config/index");
+var bcrypt = require('bcryptjs');
+var jwt = require('jsonwebtoken');
+
 var router = express.Router();
-var enigma = require("enigma-code");
 
 router.post("/login", function(req, res) {
-  const { mail, pass } = req.body;
-  var vPass;
-  console.log(req.body);
-  console.log("========");
-  console.log(mail);
-  console.log(pass);
-  console.log("========");
+  const { Email, Password } = req.body;
 
-  enigma.genHash(index.enigma.vEncrip, index.enigma.key, pass, function(
-    err,
-    hash
-  ) {
-    if (err) return console.log(err); //Solo se ejecutara si existe un error
-    vPass = hash; //2dl3lkwkj13kj12k12kj321kj
-    //esa funcion retorna por defecto en hash la contraseña encriptada
-  });
-
-  models.user
-    .findAll({
-      where: {
-        Email: mail,
-        Password: vPass
-      }
-    })
-    .then(acc => {
-      req.session.id = parseInt(acc[0].ID);
-      req.session.mail = acc[0].Email;
-
-      console.log(req.session);
-      console.log("-----------------");
-      res.send(true);
+  models.user.findOne(
+    {where:{Email:Email}})
+    .then(usuario => {
+    if(!usuario) return res.status(404).json({message: 'EL USUARIO NO EXISTE'});
+    bcrypt.compare(Password,usuario.Password).then(match => {
+      if(match){
+        usuario.Password = null;
+        payload = {usuario}
+        jwt.sign(payload,index.bcrypt.key,function(error,token){
+            if(error){
+                res.status(500).json({error});
+            }else{
+              usuario.token = token;
+              res.status(200).json({
+                Name:usuario.Name,
+                LastName:usuario.LastName,
+                Email:usuario.Email,
+                Token : token,
+                Role : usuario.Roles_ID,
+                Universities_ID : usuario.Universities_ID
+              });
+            }
+        })
+    }else{
+        res.status(200).json({message: 'PASSWORD INCORRECTA'});
+    }
     });
+  });
 });
 
 router.post("/create", (req, res) => {
-  const { name, lsname, rol, mail, pass, uni } = req.body;
-  var vPass = "";
-  enigma.genHash(index.enigma.vEncrip, index.enigma.key, pass, function(
-    err,
-    hash
-  ) {
-    if (err) return console.log(err); //Solo se ejecutara si existe un error
-    vPass = hash;
-    console.log(hash); //2dl3lkwkj13kj12k12kj321kj
-    //esa funcion retorna por defecto en hash la contraseña encriptada
-  });
-  try {
-    models.user
-      .create({
-        Name: name,
-        LastName: lsname,
-        Roles_ID: rol,
-        Email: mail,
-        Password: vPass,
-        Universities_ID: uni
-      })
-      .then(acc => {
-        req.session.id = acc.ID;
-        res.json({
-          status: "ok",
-          operation: "create",
-          id: acc.ID
-        });
-      });
-  } catch (e) {
-    console.log(e);
-  }
+  const { Name, LastName, Role, Email, Password, University } = req.body;
+  bcrypt.genSalt(10).then(salts => {
+    bcrypt.hash(Password,salts).then(hash => {
+        try {
+          models.user
+            .create({
+              Name: Name,
+              LastName: LastName,
+              Roles_ID: Role.ID, 
+              Email: Email,
+              Password: hash,
+              Universities_ID: University.ID
+            })
+            .then(usr => {
+              res.status(200).json(usr);
+            });
+        } catch (e) {
+          console.log(e)
+        }
+    }).catch(error => {
+      res.json(error)
+    });
 });
-
-router.get("/disconnect", function(req, res) {
-  console.log(req.session.id);
-  req.session.id = "";
-  res.send(true);
 });
-
 module.exports = router;

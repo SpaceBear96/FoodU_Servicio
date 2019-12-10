@@ -8,6 +8,7 @@
   "dependencies": {
     "aws-s3": "^2.0.5",
     "aws-sdk": "^2.576.0",
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.3",
     "cryptr": "^6.0.1",
     "debug": "~2.6.9",
@@ -17,6 +18,7 @@
     "express-session": "^1.17.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.0",
     "mysql2": "^2.0.0",
     "node-uuid": "^1.4.8",
