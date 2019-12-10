@@ -20,5 +20,8 @@ module.exports = {
     enigma: {
         key: '14225542',
         vEncrip: 10
+    },
+    bcrypt: {
+        key: 'Vd66fBhlCyq6LV8Ds02BTyMfjDceHjoi9f/l6SPp'
     }
 }

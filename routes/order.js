@@ -75,7 +75,8 @@ router.post('/verificar',function(req,res){
 });
 
 router.post('/confirmar',function(req,res){  
-  let code = req.body.Code
+  let code = req.body.Code;
+  console.log(req.body.Code);
   models.sale.findOne({where:{Code:code},include:[{model:models.food,},{model:models.place, },{model:models.user, }
   ]})
   .then(sale => {
