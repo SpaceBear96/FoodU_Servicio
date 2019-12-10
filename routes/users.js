@@ -67,7 +67,7 @@ router.post("/create", (req, res) => {
 });
 
 router.post("/list",(req,res)=>{
-  const id = req.body.Role;
+  const Role = req.body.Role;
   models.user
     .findAll({
       where: {
