@@ -66,7 +66,7 @@ router.post("/create", (req, res) => {
   });
 });
 
-router.post("/list", (req, res) => {
+router.get("/list", (req, res) => {
   const Role = req.body.Role;
   models.user
     .findAll({
