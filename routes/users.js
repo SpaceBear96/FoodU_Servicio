@@ -70,9 +70,6 @@ router.post("/list", (req, res) => {
   const Role = req.body.Role;
   models.user
     .findAll({
-      where: {
-        Roles_ID: Role.ID
-      },
       attributes: { exclude: ['createdAt', 'updatedAt'] }
     })
     .then(user => {
