@@ -9,6 +9,7 @@ var logger = require('morgan');
   var studentRouter = require('./routes/student');
   var foodRouter = require('./routes/food');
   var orderRouter = require('./routes/order');
+  var universitiesRouter = require('./routes/university');
   var pruebaRouter = require('./routes/prueba');
 var fileUpload = require('express-fileupload');
 var AuthToken = require('./middlewares/auth');
@@ -39,6 +40,7 @@ app.use('/student', studentRouter);
 app.use('/food', foodRouter);
 app.use('/order', orderRouter);
 app.use('/prueba', pruebaRouter);
+app.use('/universities', universitiesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
