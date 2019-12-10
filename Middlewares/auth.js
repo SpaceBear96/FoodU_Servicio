@@ -3,7 +3,7 @@ const index = require("../config/index");
 
 module.exports = function(req,res,next){
     console.log(req.path);
-    if(req.path != '/users/login' && req.path != "/users/create"){
+    if(req.path != '/users/login' && req.path != "/users/create" && req.path != "/universities"){
         if(req.headers.authorization){
             let token = req.headers.authorization.split(' ')[1];
             jwt.verify(token,index.bcrypt.key,function(error,decoded){
