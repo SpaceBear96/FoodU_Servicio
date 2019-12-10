@@ -76,6 +76,10 @@ router.post("/list",(req,res)=>{
     })
     .then(user => {
       res.json(user);
+    })
+    .catch(err => {
+      console.log(err);
+      res.json(err);
     });
 })
 
