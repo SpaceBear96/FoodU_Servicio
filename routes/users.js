@@ -64,7 +64,6 @@ router.post("/create", (req, res) => {
           Universities_ID: uni
         })
         .then(acc => {
-          req.session.id = acc.ID;
           res.json({
             status: "ok",
             operation: "create",
@@ -107,7 +106,7 @@ function verificar(email, role) {
       }
     })
     .then(user => {
-      if (user) {
+      if (user!="") {
         console.log("Tiene datos");
         console.log("ID registrado " + user[0].Roles_ID);
         console.log("ID por registrar " + role);
