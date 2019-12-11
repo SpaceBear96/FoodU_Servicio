@@ -71,10 +71,16 @@ router.get("/listBuyers", (req, res) => {
     .findAll({
       where: {
         Roles_ID: {
-          [models.Sequelize.Op.in]: ['1','3']
+          [models.Sequelize.Op.in]: ['1', '3']
         }
       },
-      attributes: { exclude: ['createdAt', 'updatedAt'] }
+      include: [
+        {
+          model: models.roles,
+          attributes: ['id', 'Name']
+        },
+        { model: models.university }
+      ]
     })
     .then(user => {
       res.json(user);
@@ -83,7 +89,7 @@ router.get("/listBuyers", (req, res) => {
       console.log(err);
       res.json(err);
     });
-})
+});
 
 function verificar(email, role) {
   models.user

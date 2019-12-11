@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     Roles_ID:{
       type: DataTypes.STRING,
         references: {
-          model: "rol",
+          model: "roles",
           key: "ID"
         }
     },
@@ -27,10 +27,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   student.associate = function(models) {
     student.belongsTo(models.university,{
-      foreignKey:'ID'
+      foreignKey:'Universities_ID'
     }),
-    student.belongsTo(models.rol,{
-      foreignKey:'ID'
+    student.belongsTo(models.roles,{
+      foreignKey:'Roles_ID'
     });
   };  
   return student;

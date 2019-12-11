@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const university = sequelize.define('university', {
+  const roles = sequelize.define('roles', {
     ID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true,
     timestamp: false,
     omitNull: true,
-  });
-  university.associate = function (models) {
-    university.hasMany(models.user, {
-      foreignKey: 'Universities_ID'
+  }, {});
+  roles.associate = function (models) {
+    roles.hasMany(models.user, {
+      foreignKey: 'ID'
     });
   };
-  return university;
+  return roles;
 };
