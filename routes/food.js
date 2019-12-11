@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
     res.json(comida);
   });
 });
-
+// Listado de comida por usuario
 router.post('/', function (req, res) {
   id = req.body.id;
   models.food.findAll({
@@ -28,6 +28,36 @@ router.post('/', function (req, res) {
     res.json(comida);
   });
 });
+
+//Listado de comida para clientes (id = Universities_ID)
+router.post('/list',function(req,res){
+  id = req.body.id;
+  models.food.findAll({
+    include:[{
+      model:models.user,
+      where:{
+        Universities_ID:id
+      }
+    }]
+    
+  }).then(comida => {
+    res.json(comida);
+  });
+
+});
+
+router.get('/view',function(req,res){
+  id = req.params("id");
+  models.food.findAll({
+    where:{
+      ID:id
+    }
+  }).then(comida => {
+    res.json(comida);
+  });
+
+});
+
 
 router.post('/create', function (req, res) {
   const { documento } = req.files;
