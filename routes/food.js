@@ -15,6 +15,20 @@ router.get('/', function (req, res) {
   });
 });
 
+router.post('/', function (req, res) {
+  id = req.body.id;
+  models.food.findAll({
+    include:[{
+      model:models.user
+    }],
+    where:{
+      Users_ID:id
+    }
+  }).then(comida => {
+    res.json(comida);
+  });
+});
+
 router.post('/create', function (req, res) {
   const { documento } = req.files;
   const { name, descr, precio,stock,stu } = req.body    
