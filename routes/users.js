@@ -77,7 +77,7 @@ router.get("/listBuyers", (req, res) => {
       include: [
         {
           model: models.roles,
-          attributes: ['id', 'Name']
+          attributes: ['ID', 'Name']
         },
         { model: models.university }
       ]
