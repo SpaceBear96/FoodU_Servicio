@@ -77,7 +77,7 @@ router.get("/terminadas/:id", function(req, res) {
   models.sale
     .findAll({
       where: { 
-       State: false,        
+       State: true,        
       },
       include: [
         {
