@@ -60,19 +60,18 @@ router.get('/view/:id',function(req,res){
 
 
 router.post('/create', function (req, res) {
-  const { documento } = req.files;
-  const { name, descr, precio,stock,stu } = req.body    
+  const { Nombre, Descripcion, Precio,Stock,User,Img } = req.body    
   try {
-    var nm = aws.putObject(NEW_BUCKET_NAME, documento);
-    console.log("Posiblenombre : "+nm);
+    // var nm = aws.putObject(NEW_BUCKET_NAME, documento);
+    // console.log("Posiblenombre : "+nm);
     
     models.food.create({
-        Name: name,
-        Description: descr,
-        Price: precio,
-        Stock: stock,
-        Users_ID: stu,
-        Image: nm,
+        Name: Nombre,
+        Description: Descripcion,
+        Price: Precio,
+        Stock: Stock,
+        Users_ID: User,
+        Image: Img,
         createdAt: Date.now(),
         updatedAt: Date.now()
     }).then( fd => {
