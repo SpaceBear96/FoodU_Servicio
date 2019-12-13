@@ -30,8 +30,8 @@ router.get('/:id', function (req, res) {
 });
 
 //Listado de comida para clientes (id = Universities_ID)
-router.post('/list',function(req,res){
-  id = req.body.id;
+router.get('/list/:id',function(req,res){
+  id = req.params.id;
   models.food.findAll({
     include:[{
       model:models.user,
