@@ -48,7 +48,7 @@ router.get('/list/:id',function(req,res){
 
 router.get('/view/:id',function(req,res){
   id = req.params.id;
-  models.food.findAll({
+  models.food.findOne({
     where:{
       ID:id
     }
