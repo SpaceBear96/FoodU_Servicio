@@ -39,6 +39,36 @@ router.post("/login", function (req, res) {
     });
 });
 
+// router.get("/favorites/:id",(req,res)=>{
+//     id = parseInt(req.params.id);
+//     data = [];
+//     models.favorite
+//     .findAll({
+//       where: {
+//             User_ID:id
+//       }
+//     })
+//     .then(user => {
+//         user.forEach(item =>{
+//           models.food.findAll({
+//           where:{
+//             Users_ID:item.id
+//           }
+//           }).then(fd =>{
+//             data.push(fd);
+//             console.log(data);
+//           }).catch(err => {
+//             console.log(err);
+//             res.json(err);
+//           });
+//         });
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.json(err);
+//     });
+// })
+
 router.post("/create", (req, res) => {
   const { Name, LastName, Role, Email, Password, University } = req.body;
 

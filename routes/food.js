@@ -15,8 +15,8 @@ router.get('/', function (req, res) {
   });
 });
 // Listado de comida por usuario
-router.post('/', function (req, res) {
-  id = req.body.id;
+router.get('/:id', function (req, res) {
+  id = req.params.id;
   models.food.findAll({
     include:[{
       model:models.user
