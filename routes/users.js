@@ -96,13 +96,15 @@ router.post("/create", (req, res) => {
   });
 });
 
-router.get("/listBuyers", (req, res) => {
+router.get("/listBuyers/:id", (req, res) => {
+  const { id } = req.params
   models.user
     .findAll({
       where: {
         Roles_ID: {
           [models.Sequelize.Op.in]: ['1', '3']
-        }
+        },
+        Universities_ID: id
       },
       include: [
         {

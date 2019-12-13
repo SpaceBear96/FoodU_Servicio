@@ -5,7 +5,7 @@ const index = require("../config/index");
 var sequelize = require("sequelize");
 var router = express.Router();
 
-router.get("/completas", function(req, res) {
+router.get("/completas", function (req, res) {
   models.sale
     .findAll({
       where: { State: true },
@@ -25,7 +25,7 @@ router.get("/completas", function(req, res) {
       res.json(orders);
     });
 });
-router.get("/pendientes", function(req, res) {
+router.get("/pendientes", function (req, res) {
   models.sale
     .findAll({
       where: { State: false },
@@ -46,7 +46,7 @@ router.get("/pendientes", function(req, res) {
     });
 });
 
-router.get("/pendientes/:id", function(req, res) {
+router.get("/pendientes/:id", function (req, res) {
   id = req.params.id;
   models.sale
     .findAll({
@@ -56,8 +56,8 @@ router.get("/pendientes/:id", function(req, res) {
       include: [
         {
           model: models.food,
-          where:{
-            Users_ID:id
+          where: {
+            Users_ID: id
           }
         },
         {
@@ -73,7 +73,7 @@ router.get("/pendientes/:id", function(req, res) {
     });
 });
 
-router.get("/terminadas/:id", function(req, res) {
+router.get("/terminadas/:id", function (req, res) {
   id = req.params.id;
   models.sale
     .findAll({
@@ -83,8 +83,8 @@ router.get("/terminadas/:id", function(req, res) {
       include: [
         {
           model: models.food,
-          where:{
-            Users_ID:id
+          where: {
+            Users_ID: id
           }
         },
         {
@@ -100,28 +100,31 @@ router.get("/terminadas/:id", function(req, res) {
     });
 });
 
-router.get("/listCodes/:id",function(req,res){
-  id=req.params.id;
+router.get("/listCodes/:id", function (req, res) {
+  id = req.params.id;
   models.sale
     .findAll({
-      attributes:['ID','Code','State',[sequelize.literal('Price*Quantity'),'Total'],'createdAt'],
-      where: { 
-       Users_ID:id,        
-      }
+      attributes: ['ID', 'Code', 'State', [sequelize.literal('Price*Quantity'), 'Total'], 'CreatedAt'],
+      where: {
+        Users_ID: id,
+      },
+      order: [
+        ['CreatedAt', 'DESC']
+      ],
     })
     .then(order => {
       res.json(order);
-    }).catch (err=>{
+    }).catch(err => {
       console.log(err);
     });
 });
 
-router.post("/create", function(req, res) {
+router.post("/create", function (req, res) {
   const { Quantity, Food, Place, User } = req.body;
   //Generación del codigo de 6 dígitos
   var pin = GenCodigo();
   console.log(pin);
-  console.log("Hola ",req.body);
+  console.log("Hola ", req.body);
   models.sale
     .create({
       Price: parseFloat(Food.Price),
@@ -140,12 +143,12 @@ router.post("/create", function(req, res) {
         Code: pst.Code
       });
     }).catch(error => {
-      console.log("Error: ",error);
+      console.log("Error: ", error);
       res.json(error);
     });
 });
 
-router.post("/verificar", function(req, res) {
+router.post("/verificar", function (req, res) {
   let code = req.body.Code;
   models.sale
     .findOne({
@@ -161,7 +164,7 @@ router.post("/verificar", function(req, res) {
     });
 });
 
-router.post("/confirmar", function(req, res) {
+router.post("/confirmar", function (req, res) {
   let code = req.body.Code;
   models.sale
     .findOne({
