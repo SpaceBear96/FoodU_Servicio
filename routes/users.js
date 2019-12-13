@@ -74,9 +74,7 @@ router.post("/create", (req, res) => {
 
   bcrypt.genSalt(10).then(salts => {
     bcrypt.hash(Password, salts).then(hash => {
-
       // verificar(Email,Role,hash);
-
       try {
         models.user
           .create({
