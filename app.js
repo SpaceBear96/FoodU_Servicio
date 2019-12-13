@@ -24,9 +24,6 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());   // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({
-      extended: true  })); 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
