@@ -104,7 +104,7 @@ router.get("/listCodes/:id",function(req,res){
   id=req.params.id;
   models.sale
     .findAll({
-      attributes:['ID','Code',[sequelize.literal('Price*Quantity'),'Total'],'createdAt'],
+      attributes:['ID','Code','State',[sequelize.literal('Price*Quantity'),'Total'],'createdAt'],
       where: { 
        Users_ID:id,        
       }
