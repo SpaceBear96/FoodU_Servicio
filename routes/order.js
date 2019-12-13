@@ -50,7 +50,7 @@ router.post("/create", function(req, res) {
   //Generación del codigo de 6 dígitos
   var pin = GenCodigo();
   console.log(pin);
-  console.log(req.body);
+  console.log("Hola ",req.body);
   models.sale
     .create({
       Price: parseFloat(Food.Price),
@@ -68,7 +68,7 @@ router.post("/create", function(req, res) {
         id: pst.ID
       });
     }).catch(error => {
-      console.log(error);
+      console.log("Error: ",error);
       res.json(error);
     });
 });
