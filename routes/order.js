@@ -67,6 +67,8 @@ router.post("/create", function(req, res) {
         operation: "create",
         id: pst.ID
       });
+    }).catch(error => {
+      res.json(error)
     });
 });
 
