@@ -51,7 +51,7 @@ router.get("/pendientes/:id", function(req, res) {
   models.sale
     .findAll({
       where: { 
-       State: false,        
+       State: true,        
       },
       include: [
         {
@@ -78,7 +78,7 @@ router.get("/terminadas/:id", function(req, res) {
   models.sale
     .findAll({
       where: { 
-       State: true,        
+       State: false,        
       },
       include: [
         {
@@ -133,6 +133,7 @@ router.post("/create", function(req, res) {
       Users_ID: parseInt(User.ID)
     })
     .then(pst => {
+      models.food.update
       res.json({
         status: "ok",
         operation: "create",
