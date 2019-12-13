@@ -71,6 +71,7 @@ router.post('/create', function (req, res) {
         Price: Precio,
         Stock: Stock,
         Users_ID: User,
+        State:1,
         Image: Img,
         createdAt: Date.now(),
         updatedAt: Date.now()
