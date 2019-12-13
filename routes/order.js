@@ -65,7 +65,7 @@ router.post("/create", function(req, res) {
       res.json({
         status: "ok",
         operation: "create",
-        id: pst.Code
+        Code: pst.Code
       });
     }).catch(error => {
       console.log("Error: ",error);
