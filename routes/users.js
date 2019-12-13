@@ -97,14 +97,14 @@ router.post("/create", (req, res) => {
 });
 
 router.get("/listBuyers/:id", (req, res) => {
-  const { Universities_ID } = req.params
+  const { id } = req.params
   models.user
     .findAll({
       where: {
         Roles_ID: {
           [models.Sequelize.Op.in]: ['1', '3']
         },
-        Universities_ID: Universities_ID
+        Universities_ID: id
       },
       include: [
         {
