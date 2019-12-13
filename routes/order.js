@@ -46,14 +46,14 @@ router.get("/pendientes", function(req, res) {
 });
 
 router.post("/create", function(req, res) {
-  const { Price, Quantity, Food, Place, User } = req.body;
+  const { Quantity, Food, Place, User } = req.body;
   //Generación del codigo de 6 dígitos
   var pin = GenCodigo();
   console.log(pin);
 
   models.sale
     .create({
-      Price: parseFloat(Price),
+      Price: parseFloat(Food.Price),
       Code: pin,
       State: true,
       Quantity: parseInt(Quantity),
@@ -65,7 +65,7 @@ router.post("/create", function(req, res) {
       res.json({
         status: "ok",
         operation: "create",
-        id: pst.PostID
+        id: pst.ID
       });
     });
 });
