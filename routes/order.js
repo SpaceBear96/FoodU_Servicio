@@ -45,6 +45,60 @@ router.get("/pendientes", function(req, res) {
     });
 });
 
+router.get("/pendientes/:id", function(req, res) {
+  id = req.params.id;
+  models.sale
+    .findAll({
+      where: { 
+       State: false,        
+      },
+      include: [
+        {
+          model: models.food,
+          where:{
+            Users_ID:id
+          }
+        },
+        {
+          model: models.place
+        },
+        {
+          model: models.user,
+        }
+      ]
+    })
+    .then(orders => {
+      res.json(orders);
+    });
+});
+
+router.get("/terminadas/:id", function(req, res) {
+  id = req.params.id;
+  models.sale
+    .findAll({
+      where: { 
+       State: false,        
+      },
+      include: [
+        {
+          model: models.food,
+          where:{
+            Users_ID:id
+          }
+        },
+        {
+          model: models.place
+        },
+        {
+          model: models.user,
+        }
+      ]
+    })
+    .then(orders => {
+      res.json(orders);
+    });
+});
+
 router.post("/create", function(req, res) {
   const { Quantity, Food, Place, User } = req.body;
   //Generación del codigo de 6 dígitos
