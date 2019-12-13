@@ -46,8 +46,8 @@ router.post('/list',function(req,res){
 
 });
 
-router.get('/view',function(req,res){
-  id = req.params("id");
+router.get('/view/:id',function(req,res){
+  id = req.params.id;
   models.food.findAll({
     where:{
       ID:id

@@ -9,9 +9,9 @@ router.get("/",function(req,res){
     });
 });
 
-router.post("/places",function(req,res){
-	id = req.body.id;
-	console.log(id);
+router.get("/places/:id",function(req,res){
+	id = req.params.id;
+
 	models.place.findAll({
 		where:{
 			Universities_ID: id
@@ -19,6 +19,6 @@ router.post("/places",function(req,res){
 	}).then(pl=>{
 		res.json(pl);
 	})
-})
+});
 
 module.exports = router;
