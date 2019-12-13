@@ -50,7 +50,7 @@ router.post("/create", function(req, res) {
   //Generación del codigo de 6 dígitos
   var pin = GenCodigo();
   console.log(pin);
-
+  console.log(req.body);
   models.sale
     .create({
       Price: parseFloat(Food.Price),
