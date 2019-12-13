@@ -23,6 +23,7 @@ router.post("/login", function (req, res) {
             } else {
               usuario.token = token;
               res.status(200).json({
+                ID: usuario.ID,
                 Name: usuario.Name,
                 LastName: usuario.LastName,
                 Email: usuario.Email,
@@ -91,9 +92,7 @@ router.post("/create", (req, res) => {
       } catch (e) {
         console.log(e)
       }
-    }).catch(error => {
-      res.json(error)
-    });
+    })
   });
 });
 
