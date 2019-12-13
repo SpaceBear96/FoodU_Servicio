@@ -2,6 +2,7 @@ var express = require("express");
 var models = require("../models");
 var crypto = require("crypto");
 const index = require("../config/index");
+var sequelize = require("sequelize");
 var router = express.Router();
 
 router.get("/completas", function(req, res) {
@@ -96,6 +97,22 @@ router.get("/terminadas/:id", function(req, res) {
     })
     .then(orders => {
       res.json(orders);
+    });
+});
+
+router.get("/listCodes/:id",function(req,res){
+  id=req.params.id;
+  models.sale
+    .findAll({
+      attributes:['ID','Code',[sequelize.literal('Price*Quantity'),'Total'],'createdAt'],
+      where: { 
+       Users_ID:id,        
+      }
+    })
+    .then(order => {
+      res.json(order);
+    }).catch (err=>{
+      console.log(err);
     });
 });
 
