@@ -68,7 +68,8 @@ router.post("/create", function(req, res) {
         id: pst.ID
       });
     }).catch(error => {
-      res.json(error)
+      console.log(error);
+      res.json(error);
     });
 });
 
